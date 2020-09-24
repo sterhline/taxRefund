@@ -5,7 +5,8 @@ let gulp = require('gulp'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     del = require('del'),
-    autoprefixer = require('gulp-autoprefixer');
+    autoprefixer = require('gulp-autoprefixer'),
+    ghPages = require('gulp-gh-pages');
 
 
 gulp.task('clean', async function(){
@@ -90,3 +91,8 @@ gulp.task('watch', function(){
 gulp.task('build', gulp.series('clean', 'export'))
 
 gulp.task('default', gulp.parallel('css' ,'scss', 'js', 'browser-sync', 'watch'));
+
+gulp.task('deploy', function() {
+  return gulp.src('./app/**/*')
+    .pipe(ghPages());
+});
